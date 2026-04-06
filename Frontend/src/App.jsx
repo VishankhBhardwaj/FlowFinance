@@ -10,14 +10,14 @@ export default function App() {
   const [initialData, setInitialData] = useState([]);
   const [role, setRole] = useState('viewer');
   const [activeTab, setActiveTab] = useState('dashboard');
-
+  const API = import.meta.env.VITE_API_URL;
 
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/data/transactions");
+        const response = await axios.get(`${API}/api/data/transactions`);
         if (response?.data?.initial_transactions) {
           setInitialData(response.data.initial_transactions);
           if (!localStorage.getItem('fin_transactions') || JSON.parse(localStorage.getItem('fin_transactions') || "[]").length === 0) {

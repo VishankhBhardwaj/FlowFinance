@@ -5,7 +5,7 @@ import { CSVLink } from "react-csv";
 export default function Transactions({ transactions = [], setTransactions, role }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [newTx, setNewTx] = useState({ date: '', description: '', amount: '', category: 'Food', type: 'expense' });
-
+  const API = import.meta.env.VITE_API_URL;
   const handleAddTransaction = (e) => {
     e.preventDefault();
     if (newTx.description === '' || newTx.amount === '' || newTx.date === '') {
@@ -43,7 +43,7 @@ export default function Transactions({ transactions = [], setTransactions, role 
         amount: parseFloat(newTx.amount),
       };
 
-      const response = await axios.post('http://localhost:5000/api/data/upload', payload);
+      const response = await axios.post(`${API}http://localhost:5000/api/data/upload`, payload);
 
       if (response?.data) {
         setTransactions([...transactions, response.data.data]);

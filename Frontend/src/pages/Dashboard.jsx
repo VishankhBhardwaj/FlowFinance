@@ -10,6 +10,7 @@ const COLORS = ['#4f46e5', '#c084fc', '#f97316', '#eab308', '#0ea5e9'];
 
 export default function Dashboard({ transactions = [] }) {
   const [trendData, setTrendData] = useState([]);
+  const API = import.meta.env.VITE_API_URL;
   let totalIncome = 0;
   let totalExpense = 0;
   let balance = 0;
@@ -45,7 +46,7 @@ export default function Dashboard({ transactions = [] }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/data/fetch', { balance });
+        const response = await axios.post(`${API}/api/data/fetch`, { balance });
         if (response?.data?.data) {
           setTrendData(response.data.data);
           toast.success("Trend data fetched successfully");
